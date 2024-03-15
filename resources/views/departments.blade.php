@@ -24,7 +24,8 @@
                         <tbody>
                             @foreach ($departments as $department)
                                 <a href="/departments/{{ $department->id }}">
-                                    <tr class="border-b border-neutral-200 dark:border-white/10">
+                                    <tr
+                                        class="border-b border-neutral-200 hover:bg-neutral-100 dark:border-white/10 dark:hover:bg-neutral-600">
                                         <td class="whitespace-nowrap  px-6 py-4 font-medium">{{ $department->id }}</td>
                                         <td class="whitespace-nowrap  px-6 py-4">{{ $department->name }}</td>
                                         <td class="whitespace-nowrap  px-6 py-4">
