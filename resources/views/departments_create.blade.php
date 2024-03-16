@@ -5,9 +5,9 @@
 
                 <div class="mt-6 mb-6 flex justify-between">
                     <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-200 leading-tight">
-                        Create User
+                        Create Department
                     </h2>
-                    <a href="{{ route('users') }}"
+                    <a href="{{ route('departments') }}"
                         class="inline-flex items-center px-4 py-2 border border-gray-500 text-sm leading-4 font-medium rounded-md text-white bg-primary-600 hover:bg-primary-500 focus:outline-none focus:border-primary-700 focus:shadow-outline-primary active:bg-primary-700 transition ease-in-out duration-150">
                         cancel
                     </a>
@@ -28,7 +28,7 @@
 
 
 
-                <form action="{{ route('users.store') }}" method="POST" class="max-w-md mx-auto">
+                <form action="{{ route('departments.store') }}" method="POST" class="max-w-md mx-auto">
                     @csrf
 
                     <div class="mb-4">
@@ -39,16 +39,11 @@
                     </div>
 
                     <div class="mb-4">
-                        <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email:</label>
-                        <input type="email" name="email" id="email"
-                            @if (old('email')) value="{{ old('email') }}" @endif
+                        <label for="departments" class="block text-gray-700 text-sm font-bold mb-2">Subdepartment
+                            Of:</label>
+                        <select name="subdepartmentOf" id="subdepartmentOf"
                             class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                    </div>
-
-                    <div class="mb-4">
-                        <label for="departments" class="block text-gray-700 text-sm font-bold mb-2">Departments:</label>
-                        <select name="departments[]" id="departments" multiple
-                            class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                            <option value="">Optional</option>
                             @foreach ($departments as $department)
                                 <option value="{{ $department->id }}">{{ $department->name }}</option>
                             @endforeach
@@ -57,8 +52,8 @@
 
                     <div class="flex items-center justify-between">
                         <button type="submit"
-                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Create
-                            User</button>
+                            class="bg-blue-500 hover:bg-blue-700 dard:bg-gray-500 dark:hover:bg-gray-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Create
+                            Department</button>
                     </div>
                 </form>
 

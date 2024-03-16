@@ -16,12 +16,25 @@ class DepartmentController extends Controller
 
     public function create()
     {
-        //
+        $departments = Department::orderBy('name')->get();
+
+        return view('departments_create', [
+            'departments' => $departments,
+        ]);
     }
 
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+        ]);
+
+        Department::create([
+            'name' => $request->name,
+            'subdepartment_of' => ($request->subdepartmentOf != '') ? $request->subdepartmentOf : null,
+        ]);
+
+        return redirect()->route('departments');
     }
 
     public function show(Department $department)

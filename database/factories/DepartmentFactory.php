@@ -9,7 +9,7 @@ class DepartmentFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->domainName(),
+            'name' => fake()->jobTitle(),
         ];
     }
 }
