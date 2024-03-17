@@ -56,16 +56,42 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
-        //
+        $departments = Department::orderBy('name')->get();
+
+        return view('users_edit', [
+            'user' => $user,
+            'departments' => $departments,
+        ]);
     }
 
     public function update(Request $request, User $user)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+        ]);
+
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+        ]);
+
+        $user->departments()->detach();
+        if (isset($request->departments ) && $request->departments != null) {
+            foreach ($request->departments as $department_id) {
+                $user->departments()->attach($department_id);
+            }
+        }
+
+        return redirect()->route('users.show', $user);
     }
 
     public function destroy(User $user)
     {
-        //
+        $user->departments()->detach();
+        
+        $user->delete();
+
+        return redirect()->route('users');
     }
 }

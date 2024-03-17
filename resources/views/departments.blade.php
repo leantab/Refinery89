@@ -19,19 +19,29 @@
                                 <th scope="col" class=" px-6 py-4">#</th>
                                 <th scope="col" class=" px-6 py-4">Name</th>
                                 <th scope="col" class=" px-6 py-4">Subdepartment Of</th>
+                                <th scope="col" class=" px-6 py-4"></th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($departments as $department)
-                                <a href="/departments/{{ $department->id }}">
-                                    <tr
-                                        class="border-b border-neutral-200 hover:bg-neutral-100 dark:border-white/10 dark:hover:bg-neutral-600">
-                                        <td class="whitespace-nowrap  px-6 py-4 font-medium">{{ $department->id }}</td>
-                                        <td class="whitespace-nowrap  px-6 py-4">{{ $department->name }}</td>
-                                        <td class="whitespace-nowrap  px-6 py-4">
-                                            {{ $department->subdepartmentOf->name ?? '' }}</td>
-                                    </tr>
-                                </a>
+                                <tr
+                                    class="border-b border-neutral-200 hover:bg-neutral-100 dark:border-white/10 dark:hover:bg-neutral-600">
+                                    <td class="whitespace-nowrap  px-6 py-4 font-medium">{{ $department->id }}</td>
+                                    <td class="whitespace-nowrap  px-6 py-4">{{ $department->name }}</td>
+                                    <td class="whitespace-nowrap  px-6 py-4">
+                                        {{ $department->subdepartmentOf->name ?? '' }}</td>
+                                    <td class="flex justify-between whitespace-nowrap  px-6 py-4">
+                                        <a href="/departments/{{ $department->id }}"
+                                            class="text-primary-600 hover:text-primary-900">View</a>
+                                        <a href="/departments/edit/{{ $department->id }}"
+                                            class="text-primary-600 hover:text-primary-900">Edit</a>
+                                        <form action="/departments/delete/{{ $department->id }}" method="POST">
+                                            @csrf
+                                            <button type="submit"
+                                                class="text-red-600 hover:text-red-900 ml-2">Delete</button>
+                                        </form>
+                                    </td>
+                                </tr>
                             @endforeach
                         </tbody>
                     </table>

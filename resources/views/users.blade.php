@@ -20,6 +20,7 @@
                                 <th scope="col" class=" px-6 py-4">Name</th>
                                 <th scope="col" class=" px-6 py-4">Email</th>
                                 <th scope="col" class=" px-6 py-4">Departments</th>
+                                <th scope="col" class=" px-6 py-4"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -30,7 +31,18 @@
                                         <td class="whitespace-nowrap  px-6 py-4">{{ $user->name }}</td>
                                         <td class="whitespace-nowrap  px-6 py-4">{{ $user->email }}</td>
                                         <td class="whitespace-nowrap  px-6 py-4">
-                                            {{ implode(',', $user->departments->pluck('name')->toArray()) }}
+                                            {{ implode(', ', $user->departments->pluck('name')->toArray()) }}
+                                        </td>
+                                        <td class="flex justify-between whitespace-nowrap  px-6 py-4">
+                                            <a href="/users/{{ $user->id }}"
+                                                class="text-primary-600 hover:text-primary-900">View</a>
+                                            <a href="/users/edit/{{ $user->id }}"
+                                                class="text-primary-600 hover:text-primary-900">Edit</a>
+                                            <form action="/users/delete/{{ $user->id }}" method="POST">
+                                                @csrf
+                                                <button type="submit"
+                                                    class="text-red-600 hover:text-red-900 ml-2">Delete</button>
+                                            </form>
                                         </td>
                                     </tr>
                                 </a>
