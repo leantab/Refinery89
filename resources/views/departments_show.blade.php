@@ -63,6 +63,16 @@
                         class="text-white text-sm font-bold mb-2">{{ $department->subdepartmentOf->name ?? '' }}</span>
                 </div>
 
+                <div class="mb-4">
+                    <label for="departments"
+                        class="block text-gray-500 dark:text-gray-300 text-sm font-bold mb-2">Assigned Users:</label>
+                    <ul>
+                        @foreach ($department->users as $user)
+                            <li class="text-white text-sm font-bold mb-2">{{ $user->name }} - {{ $user->email }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+
             </div>
         </div>
     </div>
