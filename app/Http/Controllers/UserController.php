@@ -44,6 +44,7 @@ class UserController extends Controller
             }
         }
 
+        session()->flash('success', 'User created successfully');
         return redirect()->route('users');
     }
 
@@ -83,6 +84,7 @@ class UserController extends Controller
             }
         }
 
+        session()->flash('success', 'User updated successfully');
         return redirect()->route('users.show', $user);
     }
 
@@ -92,6 +94,7 @@ class UserController extends Controller
         
         $user->delete();
 
+        session()->flash('success', 'User deleted successfully');
         return redirect()->route('users');
     }
 }

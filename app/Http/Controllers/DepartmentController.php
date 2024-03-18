@@ -34,6 +34,7 @@ class DepartmentController extends Controller
             'subdepartment_of' => ($request->subdepartmentOf != '') ? $request->subdepartmentOf : null,
         ]);
 
+        session()->flash('success', 'Department created successfully');
         return redirect()->route('departments');
     }
 
@@ -64,6 +65,7 @@ class DepartmentController extends Controller
         $department->subdepartment_of = ($request->subdepartmentOf != '') ? $request->subdepartmentOf : null;
         $department->save();
 
+        session()->flash('success', 'Department updated successfully');
         return redirect()->route('departments.show', $department);
     }
 
@@ -73,6 +75,7 @@ class DepartmentController extends Controller
         
         $department->delete();
 
+        session()->flash('success', 'Department deleted successfully');
         return redirect()->route('departments');
     }
 }
