@@ -2,21 +2,24 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Department;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     */
+    use WithoutModelEvents;
+
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
+        $users = User::factory(20)->create();
+        $departments = Department::factory(20)->create();
 
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        $users->each(function ($user) use ($departments) {
+            $user->departments()->attach(
+                $departments->random(rand(1, 5))->pluck('id')->toArray()
+            );
+        });
     }
 }

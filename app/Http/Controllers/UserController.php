@@ -2,12 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\CreateUserAction;
+use App\Data\CreateUserData;
 use App\Models\Department;
 use App\Models\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    public function __construct(
+        private CreateUserAction $createUserAction
+    )
+    {}
+
     public function index()
     {
         $users = User::all();
@@ -26,23 +33,9 @@ class UserController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(CreateUserData $data)
     {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|email',
-        ]);
-
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-        ]);
-
-        if (isset($request->departments ) && $request->departments != null) {
-            foreach ($request->departments as $department_id) {
-                $user->departments()->attach($department_id);
-            }
-        }
+        $user = $this->createUserAction->__invoke($data);
 
         session()->flash('success', 'User created successfully');
         return redirect()->route('users');
