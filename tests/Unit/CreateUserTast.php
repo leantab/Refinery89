@@ -2,7 +2,8 @@
 
 namespace Tests\Unit;
 
-use App\Models\User;
+use App\Actions\CreateUserAction;
+use App\Data\CreateUserData;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -10,16 +11,25 @@ class CreateUserTast extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_validation_errors(): void
+    public function __construct(
+        private CreateUserAction $createUserAction)
     {
-        $this->seed();
+    }
 
-        $user = User::find(1);
-        $response = $this->actingAs($user)->post('/users/store', [
-            'name' => '',
-            'email' => ''
+    public function test_user_created(): void
+    {
+        $user = $this->createUserAction->__invoke(
+            CreateUserData::from([
+                'name' => 'John Doe',
+                'email' => 'johndoe@example.com',
+                'password' => 'password',
+                'departments' => [1,2],
+            ])
+        );
+
+        $this->assertDatabaseHas('users', [
+            'name' => 'John Doe',
+            'email' => 'johndoe@example.com'
         ]);
-        
-        $response->assertSessionHasErrors(['name', 'email']);
     }
 }

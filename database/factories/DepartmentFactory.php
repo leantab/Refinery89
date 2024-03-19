@@ -10,6 +10,7 @@ class DepartmentFactory extends Factory
     {
         return [
             'name' => fake()->jobTitle(),
+            'subdepartment_of' => null,
         ];
     }
 }

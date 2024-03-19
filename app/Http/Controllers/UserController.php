@@ -33,9 +33,11 @@ class UserController extends Controller
         ]);
     }
 
-    public function store(CreateUserData $data)
+    public function store(Request $request)
     {
-        $user = $this->createUserAction->__invoke($data);
+        $user = $this->createUserAction->__invoke(
+            CreateUserData::fromRequest($request)
+        );
 
         session()->flash('success', 'User created successfully');
         return redirect()->route('users');

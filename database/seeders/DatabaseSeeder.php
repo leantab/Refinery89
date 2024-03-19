@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
 
         $users->each(function ($user) use ($departments) {
             $user->departments()->attach(
-                $departments->random(rand(1, 5))->pluck('id')->toArray()
+                $departments->random(rand(1, 3))->pluck('id')->toArray()
             );
         });
     }
